@@ -39,11 +39,11 @@ public class PostServiceImpl implements PostService {
 	public PostDto createPost(PostDto postDto, Integer userId, Integer categoryId) {
 		// TODO Auto-generated method stub
 		User user = this.userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("User", "User ID ", userId));
-		UserDto userDto = this.modelMapper.map(user, UserDto.class);
+	//	UserDto userDto = this.modelMapper.map(user, UserDto.class);
 		
 		Category category = this.categoryRepo.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category", "Category ID", categoryId));
 		
-		CategoryDto categoryDto = this.modelMapper.map(category, CategoryDto.class);
+	//	CategoryDto categoryDto = this.modelMapper.map(category, CategoryDto.class);
 		
 		Post post = this.modelMapper.map(postDto, Post.class);
 		
@@ -55,44 +55,50 @@ public class PostServiceImpl implements PostService {
 		
 		Post createdPost = this.postRepo.save(post);
 		PostDto createdPostDto = this.modelMapper.map(createdPost, PostDto.class);
-		createdPostDto.setCategoryDto(categoryDto);
-		createdPostDto.setUserDto(userDto);
+		//createdPostDto.setCategory(categoryDto);
+		//createdPostDto.setUser(userDto);
+		
 		return createdPostDto;
 	}
 
+	
 	@Override
 	public PostDto updatePost(PostDto postDto, Integer postId) {
+	
+		Post post = this.postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post", "Post Id", postId));
+		post.setTitle(postDto.getTitle());
+		post.setContent(postDto.getContent());
+				
+		Post updatedPost = this.postRepo.save(post);
 		
+		System.out.println(post.getCategory());
 		
-		Post post =this.postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post", "Post ID ", postId));
+		return this.modelMapper.map(updatedPost, PostDto.class);
 		
-		Post updatedPost = this.modelMapper.map(postDto, Post.class);
-		
-		post.setTitle(updatedPost.getTitle());
-		post.setContent(updatedPost.getContent());
-		
-		
-		Post newPost = this.postRepo.save(post);
-		
-		PostDto updatedDto = this.modelMapper.map(newPost, PostDto.class);
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-		return updatedDto;
 	}
+	
+	
+	
 
 	@Override
 	public PostDto getSinglePost(Integer postId) {
+		
+		Post post = this.postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post ", "Post Id ", postId));
 		// TODO Auto-generated method stub
-		return null;
+		
+		return this.modelMapper.map(post, PostDto.class);
+		
 	}
 
 	@Override
-	public Void deleteSinglePost(Integer postId) {
+	public void deleteSinglePost(Integer postId) {
+		
 		// TODO Auto-generated method stub
-		return null;
+		
+	Post post = this.postRepo.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post", "Post Id", postId));	
+		
+	this.postRepo.deleteById(postId);
+	
 	}
 
 	@Override

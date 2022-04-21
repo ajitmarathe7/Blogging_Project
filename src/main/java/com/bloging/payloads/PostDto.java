@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.bloging.entities.Category;
+import com.bloging.entities.User;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,8 +26,8 @@ public class PostDto {
 	private String content;
 	private Date addedDate;
 	private String imageName;
-	private UserDto userDto;
-	private CategoryDto categoryDto;
+	private UserDto user;
+	private CategoryDto category;
 	
 
 }

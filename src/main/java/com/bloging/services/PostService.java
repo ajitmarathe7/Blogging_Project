@@ -13,10 +13,11 @@ public interface PostService {
 	
 	PostDto getSinglePost(Integer postId);
 	
-	Void deleteSinglePost(Integer postId);
+	void deleteSinglePost(Integer postId);
 	
 	List<PostDto> getAllPostsByCategory(Integer categoryId);
 	
 	List<PostDto> getAllPostsByUser(Integer userId);
+	
 	
 }
