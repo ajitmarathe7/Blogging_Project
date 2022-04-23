@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(Integer userID) {
 		
 		// TODO Auto-generated method stub
-		User user = userRepo.findById(userID).orElseThrow(()->new ResourceNotFoundException("User","UserId",userID));
+		userRepo.findById(userID).orElseThrow(()->new ResourceNotFoundException("User","UserId",userID));
 		
 		this.userRepo.deleteById(userID);
 		

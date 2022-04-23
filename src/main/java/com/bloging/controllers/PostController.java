@@ -1,5 +1,7 @@
 package com.bloging.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bloging.payloads.ApiResponce;
@@ -67,4 +70,27 @@ public class PostController {
 	
 	}
 	
+	@GetMapping("/Category/{categoryId}/Posts")
+	public ResponseEntity<List<PostDto>> getAllPostOfCategory(@PathVariable Integer categoryId){
+		
+		  List<PostDto> postDtos = this.postService.getAllPostsByCategory(categoryId);
+		
+		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/{userId}/Posts")
+	public ResponseEntity<List<PostDto>> getAllPostOfUser(@PathVariable Integer userId){
+		
+		  List<PostDto> postDtos = this.postService.getAllPostsByUser(userId);
+		
+		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/posts")
+	public ResponseEntity<List<PostDto>> getAllPosts(@RequestParam(name="number") Integer pageNumber, @RequestParam(name ="size") Integer pageSize, @RequestParam(name= "sortby") String sort ){
+		
+		List<PostDto> postDtos = this.postService.getAllPosts(pageNumber,pageSize,sort);
+		
+		return new ResponseEntity<List<PostDto>>(postDtos,HttpStatus.OK);
+	}
 }

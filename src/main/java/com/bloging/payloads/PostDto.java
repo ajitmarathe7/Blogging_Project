@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostDto {
 	
-	private Integer Id;
+	private Integer postId;
 	@NotEmpty
 	@Size(min = 3 , message = "Size of title must be greater than 3 characters")
 	private String title;

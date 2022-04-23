@@ -19,5 +19,7 @@ public interface PostService {
 	
 	List<PostDto> getAllPostsByUser(Integer userId);
 	
+	List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize,String sort);
+	
 	
 }
